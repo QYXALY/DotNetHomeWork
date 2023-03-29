@@ -82,7 +82,7 @@ namespace orderManagement
         }
     }
 
-    class OrderService
+     class OrderService
     {
        public static List<Order>? OrderList;
 
@@ -155,6 +155,26 @@ namespace orderManagement
         }
     }
 
+
+    class Program
+    {
+        static void Main(string[]args)
+        {
+            Item apple = new Item("apple", 2);
+            Item orange = new Item("orange", 3);
+            Item banana = new Item("banana", 4);
+
+            Customer Zhang = new Customer("张三");
+            Customer Li = new Customer("李四");
+            Customer Wang = new Customer("王五");
+
+            OrderDetails detail1 = new OrderDetails(apple, 100, Zhang);
+            OrderDetails detail2 = new OrderDetails(banana, 50, Li);
+
+            
+
+        }
+    }
 
 
 }
