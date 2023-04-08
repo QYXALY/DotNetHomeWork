@@ -33,7 +33,7 @@ namespace orderManagement
 
         public override string ToString()
         {
-            return $"商品为{OrderItem}，共{ItemCnt}个，客户为{OrderCustomer.CustomerName}";
+            return $"商品为{OrderItem}，共{ItemCnt}个，总价格为{OrderCost},客户为{OrderCustomer.CustomerName}";
         }
 
         public bool Equals(OrderDetails de)
@@ -86,7 +86,7 @@ namespace orderManagement
     {
        public static List<Order>? OrderList;
 
-        public static void AddOrder(Order order)  //添加订单
+        public void AddOrder(Order order)  //添加订单
         {
             if (OrderList.Contains(order))
             {
@@ -98,7 +98,7 @@ namespace orderManagement
             }
         }
 
-        public static void ChangeOrder(int id, OrderDetails detail) //修改订单
+        public  void ChangeOrder(int id, OrderDetails detail) //修改订单
         {
             foreach(Order o in OrderList)
             {
@@ -111,7 +111,7 @@ namespace orderManagement
             throw new ArgumentException("修改失败！");
         }
 
-        public static void DelOrder(int id) //删除订单
+        public  void DelOrder(int id) //删除订单
         {
             foreach (Order o in OrderList)
             {
@@ -125,25 +125,25 @@ namespace orderManagement
         }
 
         //四种查找：
-        public static List<Order> FindById(int id)
+        public  List<Order> FindById(int id)
         {
             var res = from o in OrderList where id == o.Id select o;
             return res.ToList();
         }
 
-        public static List<Order> FindByItem(string name)
+        public  List<Order> FindByItem(string name)
         {
             var res = from o in OrderList where name == o.Detail.OrderItem.ItemName select o;
             return res.ToList();
         }
 
-        public static List<Order> FindByCustomer(string name)
+        public  List<Order> FindByCustomer(string name)
         {
             var res = from o in OrderList where name == o.Detail.OrderCustomer.CustomerName select o;
             return res.ToList();
         }
 
-        public static List<Order> FindByCost(double cost)
+        public  List<Order> FindByCost(double cost)
         {
             var res = from o in OrderList where cost == o.Detail.OrderCost select o;
             return res.ToList();
@@ -171,7 +171,15 @@ namespace orderManagement
             OrderDetails detail1 = new OrderDetails(apple, 100, Zhang);
             OrderDetails detail2 = new OrderDetails(banana, 50, Li);
 
-            
+            Order order1 = new Order(1, detail1);
+            Order order2 = new Order(2, detail2);
+
+            OrderService orderService = new OrderService();
+
+            orderService.AddOrder(order2);
+            orderService.AddOrder(order1);
+
+            orderService.Sort();
 
         }
     }
